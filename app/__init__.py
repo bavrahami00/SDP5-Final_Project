@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, session, url_for, redirect
+from flask import Flask, render_template, session, url_for, redirect, request, flash
 
 
 app = Flask(__name__)
@@ -44,15 +44,18 @@ def login():
     if len(request.args) == 2:
         # database checks the username and password
         #if db.authenticate_user(request.args["username"], request.args["password"]):
-        if True:
-            # Username is added to the session information
-            session["username"] = request.args["username"]
-            # The user is now logged in and goes to the home page
-            return redirect(url_for("home"))
+        if request.args["username"] == "" or request.args["password"] == "":
+            flash("Please do not leave any fields blank")
+            return render_template("login.html")
         else:
-            flash("Invalid username/password combination")
-    else:
-        flash("Enter both a username and a password")
+            #if db.authenticate_user(request.args["username"], request.args["password"]):
+            if True:
+                # Username is added to the session information
+                session["username"] = request.args["username"]
+                # The user is now logged in and goes to the home page
+                return redirect(url_for("home"))
+            else:
+                flash("Invalid username/password combination")
     return render_template("login.html")
 
 
@@ -70,12 +73,13 @@ def register():
         elif request.args["password1"] != request.args["password2"]:
             flash("Passwords don't match.")
         # else if adding the user (to the database) is successful, username must be unique
-        elif db.add_user(request.args["username"], request.args["password1"]):
+       # elif db.add_user(request.args["username"], request.args["password1"]):
+        else:
             # if the username is unique, session is added and user is redirected to home
             session["username"] = request.args["username"]
             return redirect(url_for("home"))
-        else:
-            flash("Username not unique.")
+        #else:
+            #flash("Username not unique.")
     # render register template
     return render_template('register.html')
 

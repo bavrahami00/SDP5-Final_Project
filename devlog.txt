@@ -1,3 +1,8 @@
 benjaminA -- 2020-06-07 14:49
 - Set up required files - requirements, devlog, flag
 - Filled out README
+
+benjaminA -- 2020-06-08 17:45
+- Copied over login mechanism from a previous project
+- Backend needs to be filled out (commented out all calls to database functions)
+- Created a base.html template page
