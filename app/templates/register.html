@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Account
+{% endblock %}
+
+{% block body %}
+<div>
+  <h1>Create Account</h1>
+  <br>
+  <form method="GET" action="/register">
+    <label>Enter Username</label>
+    <input type="text" name="username">
+    <br>
+    <label>Enter Password</label>
+    <input type="password" name="password1">
+    <br>
+    <label> Enter Password Again: </label>
+    <input type="password" name="password2">
+    <br>
+    <br>
+    <input class="btn btn-secondary btn-sm" type="submit" value="Submit">
+  </form>
+  <br>
+  <form action = "/login">
+    <input class="btn btn-secondary btn-sm" type = "submit" value = "Return to Login">
+  </form>
+</div>
+{% endblock %}

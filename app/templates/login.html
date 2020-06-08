@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block body %}
+  <div class="centered">
+    <h1>Login</h1>
+    <br>
+    <br>
+    <form method = "GET">
+      <label>Username</label>
+      <input type = "text" name = "username">
+      <br>
+      <label>Password</label>
+      <input type = "password" name = "password">
+      <br>
+      <br>
+      <input class="btn btn-secondary btn-sm" type = "submit" value = "Log in">
+    </form>
+    <br>
+    <form action = "/register">
+      <input class="btn btn-secondary btn-sm" type = "submit" value = "Create Account">
+    </form>
+  </div>
+{% endblock %}
