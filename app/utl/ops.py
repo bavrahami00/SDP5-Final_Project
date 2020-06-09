@@ -91,7 +91,7 @@ def get_unguides(username):
 def get_guides(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("SELECT * FROM guides WHERE user = ?;" , (username))
+    c.execute("SELECT * FROM guides WHERE user = ?;" , (username,))
     g = c.fetchall()
     db.close()
     ans = []
