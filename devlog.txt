@@ -11,3 +11,10 @@ benjaminA -- 2020-06-08 21:45
 - (Reacquainted myself with sqlite)
 - Wrote preliminary database functions
 
+benjaminA -- 2020-06-08 15:50
+- Added tables for the study guides and "academic discussion"
+- Gave users money and the ability to add to it
+- Started working on home page - now there is a logout button
+- Created an untested function to get all the study guides from the database
+
+
