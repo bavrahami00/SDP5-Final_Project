@@ -59,9 +59,31 @@ def get_money(username):
     for row in ans:
         return row[2]
 
+
 def add_money(username,amount):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("UPDATE users SET money = money + ? WHERE username = ?;" , (amount, username))
     db.commit()
     db.close()
+
+
+def get_guides():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM guides;")
+    g = c.fetchall()
+    db.close()
+    ans = []
+    for row in g:
+        next = {}
+        next["user"] = row[1]
+        next["name"] = row[2]
+        next["rating"] = row[3]
+        next["cost"] = row[4]
+        next["buyers"] = row[5]
+        next["subject"] = row[6]
+        ans.append(next)
+    return ans
+
+
