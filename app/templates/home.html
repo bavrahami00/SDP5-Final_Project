@@ -20,5 +20,18 @@
     </div>
   </nav>
   <br>
+  <h3>Your Guides</h3>
+  {% if guides|length < 1 %}
+        {% set word = 'one' %}
+        <p>You haven't created any guides</p>
+    {% else %}
+        <ul>
+        {%  for guide in guides %}
+            <li>
+                <a href="#">{{ guide["name"] }}</a>
+            </li>
+        {%  endfor %}
+        </ul>
+    {% endif %}
   <br>
 {% endblock %}

@@ -17,4 +17,6 @@ benjaminA -- 2020-06-08 15:50
 - Started working on home page - now there is a logout button
 - Created an untested function to get all the study guides from the database
 
-
+justinS -- 2020-06-09 19:35
+- Added a navigation bar
+- Homepage lists guides created by the user
