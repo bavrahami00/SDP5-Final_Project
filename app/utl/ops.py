@@ -8,7 +8,12 @@ def init():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     # creates the users table
-    c.execute("CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT, money INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS guides(id INTEGER, user TEXT, name TEXT, rating REAL, cost INTEGER, buyers INTEGER, subject TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS ratings(id INTEGER, user TEXT, rating INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS comments(id INTEGER, user TEXT, comment TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS discussions(id INTEGER, name TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS talk(id INTEGER, comment TEXT);")
     # required actions to save changes
     db.commit()
     db.close()
@@ -24,13 +29,14 @@ def add_user(username,password):
     # if there is no instance of the username:
     if c.fetchone() is None:
         # the registration attempt succeeds and the username-password pair are inserted into the database
-        c.execute("INSERT INTO users(username, password) VALUES(?, ?);" , (username, password))
+        c.execute("INSERT INTO users(username, password, money) VALUES(?, ?, 0);" , (username, password))
         ans = True
     # required actions to save changes
     db.commit()
     db.close()
     # returns true is there is no previous instance of the username; false otherwise
     return ans
+
 
 def check_user(username,password):
     #required actions to interact with sqlite
@@ -44,3 +50,18 @@ def check_user(username,password):
     return ans
 
 
+def get_money(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM users WHERE username = ?;" , (username,))
+    ans = c.fetchall()
+    db.close()
+    for row in ans:
+        return row[2]
+
+def add_money(username,amount):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("UPDATE users SET money = money + ? WHERE username = ?;" , (amount, username))
+    db.commit()
+    db.close()

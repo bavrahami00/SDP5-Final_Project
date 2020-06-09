@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Money
+{% endblock %}
+
+{% block body %}
+  You have {{cash}} money
+  <form method="GET" action="/coins">
+    <input class="form-control" type="text" name="amount">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}
