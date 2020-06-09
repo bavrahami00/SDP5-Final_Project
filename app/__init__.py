@@ -95,8 +95,15 @@ def logout():
 @protected
 @app.route("/home")
 def home():
-    return "HOME!"
+    return render_template("home.html")
 
+
+@protected
+@app.route("/coins")
+def money():
+    if len(request.args) == 1:
+        ops.add_money(session["username"], request.args["amount"])
+    return render_template("coins.html", cash=ops.get_money(session["username"]))
 
 if __name__ == "__main__":
     app.debug = True

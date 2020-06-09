@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Home
+{% endblock %}
+
+{% block body %}
+  <div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopop="true" aria-expanded="false">
+      Options
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownButton">
+      <a class="dropdown-item" href="/coins">Money</a>
+      <a class="dropdown-item" href="/logout">Logout</a>
+    </div>
+  </div>
+  <br>
+  <br>
+  <a class="btn btn-primary" href="/create">Make your own guide</button>
+{% endblock %}
