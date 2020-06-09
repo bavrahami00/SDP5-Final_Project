@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Create a study guide
+{% endblock %}
+
+{% block body %}
+  <form action="/created">
+    <div class="form-group">
+      <label>Name of guide</label>
+      <br>
+      <input type="text" name="title">
+    </div>
+    <div class="form-row">
+      <div class="col-md-6">
+        <label>Subject of guide</label>
+        <select class="custom-select" name="subject">
+          <option selected>Other</option>
+          {% for o in subjects %}
+            <option>o</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label>Subject, if other</label>
+        <br>
+        <input type="text" name="other">
+      </div>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Price</label>
+      <br>
+      <input type="text" name="price">
+    </div>
+    <div class="form-group">
+      <label>The study guide!</label>
+      <br>
+      <textarea name="guide" style="min-width: 100%;" rows="10"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+{% endblock %}

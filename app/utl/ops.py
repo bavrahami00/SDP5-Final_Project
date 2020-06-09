@@ -9,7 +9,7 @@ def init():
     c = db.cursor()
     # creates the users table
     c.execute("CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT, money INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS guides(id INTEGER, user TEXT, name TEXT, rating REAL, cost INTEGER, buyers INTEGER, subject TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS guides(id INTEGER, user TEXT, name TEXT, rating REAL, cost INTEGER, buyers INTEGER, subject TEXT, guide TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS ratings(id INTEGER, user TEXT, rating INTEGER);")
     c.execute("CREATE TABLE IF NOT EXISTS comments(id INTEGER, user TEXT, comment TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS discussions(id INTEGER, name TEXT);")
@@ -68,10 +68,10 @@ def add_money(username,amount):
     db.close()
 
 
-def get_guides():
+def get_unguides(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("SELECT * FROM guides;")
+    c.execute("SELECT * FROM guides WHERE user != ?;" , (username))
     g = c.fetchall()
     db.close()
     ans = []
@@ -83,7 +83,26 @@ def get_guides():
         next["cost"] = row[4]
         next["buyers"] = row[5]
         next["subject"] = row[6]
+        next["guide"] = row[7]
         ans.append(next)
     return ans
 
 
+def get_guides(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM guides WHERE user = ?;" , (username))
+    g = c.fetchall()
+    db.close()
+    ans = []
+    for row in g:
+        next = {}
+        next["user"] = row[1]
+        next["name"] = row[2]
+        next["rating"] = row[3]
+        next["cost"] = row[4]
+        next["buyers"] = row[5]
+        next["subject"] = row[6]
+        next["guide"] = row[7]
+        ans.append(next)
+    return ans

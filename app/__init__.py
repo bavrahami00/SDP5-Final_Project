@@ -95,7 +95,7 @@ def logout():
 @protected
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", guides=ops.get_guides(session["username"]))
 
 
 @protected
@@ -104,6 +104,35 @@ def money():
     if len(request.args) == 1:
         ops.add_money(session["username"], request.args["amount"])
     return render_template("coins.html", cash=ops.get_money(session["username"]))
+
+
+@protected
+@app.route("/create")
+def create():
+    return render_template("create.html")
+
+
+@protected
+@app.route("/created")
+def make():
+    if len(request.args) < 5:
+        return redirect(url_for("home"))
+    if request.args["title"] == "":
+        flash("Do not leave the title blank")
+        return redirect(url_for("create"))
+    if request.args["subject"] == "Other" and request.args["other"] == "":
+        flash("Please fill in a subject")
+        return redirect(url_for("create"))
+    if request.args["price"] == "":
+        flash("Do not leave the price blank")
+        return redirect(url_for("create"))
+    price = 0
+    try:
+        price = int(request.args["price"])
+    except:
+        flash("Please enter a number")
+        return redirect(url_for("create"))
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.debug = True
