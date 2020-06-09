@@ -6,3 +6,8 @@ benjaminA -- 2020-06-08 17:45
 - Copied over login mechanism from a previous project
 - Backend needs to be filled out (commented out all calls to database functions)
 - Created a base.html template page
+
+benjaminA -- 2020-06-08 21:45
+- (Reacquainted myself with sqlite)
+- Wrote preliminary database functions
+
