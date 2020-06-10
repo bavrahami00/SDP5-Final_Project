@@ -14,11 +14,7 @@
         <ul>
         {%  for guide in guides %}
             <li>
-<<<<<<< HEAD
-                <a href="{{ url_for('show_guide', id=guide['id']) }}">{{ guide["name"] }}</a>
-=======
                 <a href={{"/guide/"+(guide["id"]|string)}}>{{ guide["name"] }}</a>
->>>>>>> 0b216c826865385a162ddf3f1f8c3e3bb6f5689a
             </li>
         {%  endfor %}
         </ul>

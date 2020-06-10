@@ -138,31 +138,12 @@ def make():
     ops.create_guide(session["username"],request.args["title"],request.args["price"],sub,request.args["guide"])
     return redirect(url_for("home"))
 
-<<<<<<< HEAD
-=======
 
-@protected
->>>>>>> 0b216c826865385a162ddf3f1f8c3e3bb6f5689a
-@app.route("/market")
-@protected
-def market():
-    return render_template("market.html", guides = ops.get_unguides(session['username']))
-
-<<<<<<< HEAD
-@app.route("/guides/<id>", methods=['GET', 'POST'])
-@protected
-def show_guide(id):
-    print(ops.get_guide(id))
-    return render_template("guide.html", guide = ops.get_guide(id))
-=======
-
-@protected
 @app.route("/guide/<number>")
+@protected
 def guide(number):
     return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number))
 
-
->>>>>>> 0b216c826865385a162ddf3f1f8c3e3bb6f5689a
 
 if __name__ == "__main__":
     app.debug = True

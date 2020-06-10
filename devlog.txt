@@ -40,3 +40,6 @@ benjamin A -- 2020-06-10 18:50
 - Gave additional description of website on README
 - Allowed a (very rudimentary) way of viewing guides after creation
 - Moved navbar from each html page into base.html
+
+justinS -- 2020-06-10 17:13
+- Fixed merge because we managed to write basically the exact same code at the same time lmao
