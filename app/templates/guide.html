@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ guide["name"] }}
+{% endblock %}
+
+{% block body %}
+  <h2>{{ guide["name"] }}</h2>
+  <p>
+  {{ guide["guide"] }}
+  </p>
+{% endblock %}

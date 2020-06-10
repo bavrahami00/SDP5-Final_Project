@@ -92,28 +92,28 @@ def logout():
     return redirect(url_for("login"))
 
 
-@protected
 @app.route("/home")
+@protected
 def home():
     return render_template("home.html", guides=ops.get_guides(session["username"]))
 
 
-@protected
 @app.route("/coins")
+@protected
 def money():
     if len(request.args) == 1:
         ops.add_money(session["username"], request.args["amount"])
     return render_template("coins.html", cash=ops.get_money(session["username"]))
 
 
-@protected
 @app.route("/create")
+@protected
 def create():
     return render_template("create.html", subjects = ops.get_subjects())
 
 
-@protected
 @app.route("/created")
+@protected
 def make():
     if len(request.args) < 5:
         return redirect(url_for("home"))
@@ -138,10 +138,16 @@ def make():
     ops.create_guide(session["username"],request.args["title"],request.args["price"],sub,request.args["guide"])
     return redirect(url_for("home"))
 
-@protected
 @app.route("/market")
+@protected
 def market():
     return render_template("market.html", guides = ops.get_unguides(session['username']))
+
+@app.route("/guides/<id>", methods=['GET', 'POST'])
+@protected
+def show_guide(id):
+    print(ops.get_guide(id))
+    return render_template("guide.html", guide = ops.get_guide(id))
 
 if __name__ == "__main__":
     app.debug = True

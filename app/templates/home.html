@@ -14,7 +14,7 @@
         <ul>
         {%  for guide in guides %}
             <li>
-                <a href="#">{{ guide["name"] }}</a>
+                <a href="{{ url_for('show_guide', id=guide['id']) }}">{{ guide["name"] }}</a>
             </li>
         {%  endfor %}
         </ul>
