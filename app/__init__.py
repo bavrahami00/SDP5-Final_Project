@@ -138,10 +138,19 @@ def make():
     ops.create_guide(session["username"],request.args["title"],request.args["price"],sub,request.args["guide"])
     return redirect(url_for("home"))
 
+
 @protected
 @app.route("/market")
 def market():
     return render_template("market.html", guides = ops.get_unguides(session['username']))
+
+
+@protected
+@app.route("/guide/<number>")
+def guide(number):
+    return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number))
+
+
 
 if __name__ == "__main__":
     app.debug = True
