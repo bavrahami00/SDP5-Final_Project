@@ -77,6 +77,7 @@ def get_unguides(username):
     ans = []
     for row in g:
         next = {}
+        next["id"] = row[0]
         next["user"] = row[1]
         next["name"] = row[2]
         next["rating"] = row[3]
@@ -97,6 +98,7 @@ def get_guides(username):
     ans = []
     for row in g:
         next = {}
+        next["id"] = row[0]
         next["user"] = row[1]
         next["name"] = row[2]
         next["rating"] = row[3]
@@ -141,6 +143,7 @@ def get_guide_info(number):
     g = c.fetchall()
     next = {}
     for row in g:
+        next["id"] = row[0]
         next["user"] = row[1]
         next["name"] = row[2]
         next["rating"] = row[3]
