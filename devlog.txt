@@ -31,4 +31,6 @@ hongweiC -- 2020-06-10 11:23
 - Added the market page (the .html file, the route, to navbar)
 - Market lists guides not owned by user (untested), displaying price, author, subject, rating
 
-
+benjamin A -- 2020-06-10 18:50
+- Gave additional description of website on README
+- Allowed a (very rudimentary) way of viewing guides after creation
