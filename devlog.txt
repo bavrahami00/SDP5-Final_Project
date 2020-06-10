@@ -26,3 +26,9 @@ benjaminA -- 2020-06-09 23:40
 - Created backend functions to acknoweldge the new guide(s) created
 - Allowed there to be choosable subjects when creating a guide
 - Deleted the __pycache__ that was pushed
+
+hongweiC == 2020-06-10 11:23
+- Added the market page (the .html file, the route, to navbar)
+- Market lists guides not owned by user (untested), displaying price, author, subject, rating
+
+
