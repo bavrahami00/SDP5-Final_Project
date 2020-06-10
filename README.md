@@ -7,7 +7,7 @@
 - Jude Rizzo
 
 ## Website Description:
-This website is an attempt to have a place to collect all Stuy-related study guides and create a marketplace for them. One can buy, sell, or comment on the various study guides here.
+This website is an attempt to have a place to collect all Stuy-related study guides and create a marketplace for them. One can buy, sell, or comment on the various study guides here. In addition, there is a discussion room where academic discussions on various topics can occur.
 
 
 ## Launch Code:

@@ -35,3 +35,8 @@ justinS - 2020-06-10 17:04
 - Added pages to display guides and added links to guides
 - Added operation to get guide information
 - Fixed login protections
+
+benjamin A -- 2020-06-10 18:50
+- Gave additional description of website on README
+- Allowed a (very rudimentary) way of viewing guides after creation
+- Moved navbar from each html page into base.html
