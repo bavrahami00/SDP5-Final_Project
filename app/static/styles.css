@@ -1,0 +1,31 @@
+body{
+  background-color: #deffed;
+  font-size: 25px;
+}
+
+.login-wrapper{
+
+  align-items: center;
+  margin-top: 10%;
+  background: #bfffdc;
+  padding-top: 5em;
+  padding-bottom: 5em;
+  margin-left: 30em;
+  margin-right: 30em;
+}
+
+.login-button{
+  background: #9ebaab;
+}
+
+.login-button:hover{
+  background: #63756b;
+}
+
+.navbar{
+  background: #bfffdc;
+}
+
+.btn{
+  font-size: 25px;
+}
