@@ -71,7 +71,7 @@ def add_money(username,amount):
 def get_unguides(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("SELECT * FROM guides WHERE user != ?;" , (username))
+    c.execute("SELECT * FROM guides WHERE user != ?;" , (username,))
     g = c.fetchall()
     db.close()
     ans = []
@@ -105,4 +105,30 @@ def get_guides(username):
         next["subject"] = row[6]
         next["guide"] = row[7]
         ans.append(next)
+    return ans
+
+
+def create_guide(username,title,cost,subject,text):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM guides;")
+    g = c.fetchall()
+    high = 0
+    for row in g:
+        if row[0] > high:
+            high = row[0]
+    c.execute("INSERT INTO guides(id,user,name,cost,buyers,subject,guide) VALUES(?, ?, ?, ?, 0, ?, ?)" , (high+1,username,title,cost,subject,text))
+    db.commit()
+    db.close()
+
+
+def get_subjects():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    ans = []
+    c.execute("SELECT * FROM guides;")
+    g = c.fetchall()
+    for row in g:
+        if row[6] not in ans:
+            ans.append(row[6])
     return ans

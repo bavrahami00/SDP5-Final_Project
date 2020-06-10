@@ -109,7 +109,7 @@ def money():
 @protected
 @app.route("/create")
 def create():
-    return render_template("create.html")
+    return render_template("create.html", subjects = ops.get_subjects())
 
 
 @protected
@@ -132,7 +132,12 @@ def make():
     except:
         flash("Please enter a number")
         return redirect(url_for("create"))
+    sub = request.args["subject"]
+    if sub == "Other":
+        sub = request.args["other"]
+    ops.create_guide(session["username"],request.args["title"],request.args["price"],sub,request.args["guide"])
     return redirect(url_for("home"))
+
 
 if __name__ == "__main__":
     app.debug = True
