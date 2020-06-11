@@ -9,8 +9,9 @@ def init():
     c = db.cursor()
     # creates the users table
     c.execute("CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT, money INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS guides(id INTEGER, user TEXT, name TEXT, rating REAL, cost INTEGER, buyers INTEGER, subject TEXT, guide TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS guides(id INTEGER, user TEXT, name TEXT, rating REAL, cost INTEGER, buyers INTEGER, subject TEXT, guide TEXT, ratings INTEGER);")
     c.execute("CREATE TABLE IF NOT EXISTS ratings(id INTEGER, user TEXT, rating INTEGER);")
+    c.execute("CREATE TABLE IF NOT EXISTS buyers(id INTEGER, user TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS comments(id INTEGER, user TEXT, comment TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS discussions(id INTEGER, name TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS talk(id INTEGER, comment TEXT);")
@@ -54,18 +55,20 @@ def get_money(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("SELECT * FROM users WHERE username = ?;" , (username,))
-    ans = c.fetchall()
+    row = c.fetchone()
     db.close()
-    for row in ans:
-        return row[2]
+    return row[2]
 
 
 def add_money(username,amount):
+    if get_money(username) + amount < 0:
+        return False
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("UPDATE users SET money = money + ? WHERE username = ?;" , (amount, username))
     db.commit()
     db.close()
+    return True
 
 
 def get_unguides(username):
@@ -85,6 +88,7 @@ def get_unguides(username):
         next["buyers"] = row[5]
         next["subject"] = row[6]
         next["guide"] = row[7]
+        next["ratings"] = row[8]
         ans.append(next)
     return ans
 
@@ -106,9 +110,9 @@ def get_guides(username):
         next["buyers"] = row[5]
         next["subject"] = row[6]
         next["guide"] = row[7]
+        next["ratings"] = row[8]
         ans.append(next)
     return ans
-
 
 
 def create_guide(username,title,cost,subject,text):
@@ -120,7 +124,7 @@ def create_guide(username,title,cost,subject,text):
     for row in g:
         if row[0] > high:
             high = row[0]
-    c.execute("INSERT INTO guides(id,user,name,cost,buyers,subject,guide) VALUES(?, ?, ?, ?, 0, ?, ?);" , (high+1,username,title,cost,subject,text))
+    c.execute("INSERT INTO guides(id,user,name,rating,cost,buyers,subject,guide,ratings) VALUES(?, ?, ?, 0, ?, 0, ?, ?, 0);" , (high+1,username,title,cost,subject,text))
     db.commit()
     db.close()
 
@@ -141,18 +145,20 @@ def get_guide_info(number):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("SELECT * FROM guides WHERE id = ?;" , (number,))
-    g = c.fetchall()
+    row = c.fetchone()
+    db.close()
     next = {}
-    for row in g:
-        next["id"] = row[0]
-        next["user"] = row[1]
-        next["name"] = row[2]
-        next["rating"] = row[3]
-        next["cost"] = row[4]
-        next["buyers"] = row[5]
-        next["subject"] = row[6]
-        next["guide"] = row[7]
+    if row is None:
         return next
+    next["id"] = row[0]
+    next["user"] = row[1]
+    next["name"] = row[2]
+    next["rating"] = row[3]
+    next["cost"] = row[4]
+    next["buyers"] = row[5]
+    next["subject"] = row[6]
+    next["guide"] = row[7]
+    next["ratings"] = row[8]
     return next
 
 
@@ -161,10 +167,59 @@ def get_comments(number):
     c = db.cursor()
     c.execute("SELECT * FROM comments WHERE id = ?;" , (number,))
     g = c.fetchall()
+    db.close()
     ans = []
     for row in g:
         temp = []
         temp.append(row[1])
         temp.append(row[2])
         ans.append(temp)
+    return ans
+
+
+def add_rating(username, id, rating):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("DELETE FROM ratings WHERE id = ? AND user = ?;" , (id, username))
+    c.execute("INSERT INTO ratings(id,user,rating) VALUES(?, ?, ?);" , (id, username, rating))
+    c.execute("SELECT * FROM ratings WHERE id = ?;" , (id))
+    g = c.fetchall()
+    num = 0
+    sum = 0
+    for row in g:
+        num = num + 1
+        sum = sum + row[2]
+    c.execute("UPDATE guides SET rating = ?, ratings = ? WHERE id = ?;" , (sum/num, num, id))
+    db.commit()
+    db.close()
+
+
+def buy_guide(username, id):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM guides WHERE id = ?;" , (username,))
+    row = c.fetchone()
+    owner = row[1]
+    price = row[4]
+    db.close()
+    if add_money(username, -1 * price):
+        add_money(owner, price)
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        c.execute("INSERT INTO buyers(id, user) VALUES(?, ?);" , (id, username))
+        c.execute("UPDATE guides SET buyers = buyers + 1;")
+        db.commit()
+        db.close()
+        return True
+    return False
+
+
+def has_bought(username, id):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM buyers WHERE id = ? AND user = ?;" , (id, username))
+    ans = True
+    if c.fetchone() is None:
+        ans = False
+    db.close()
     return ans
