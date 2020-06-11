@@ -19,8 +19,12 @@
               <h5>Subject: {{ guide["subject"]}}</h5>
               <br>
               <p class="card-text">{{ guide["buyers"] }} buyers</p>
-              <p class="card-text"> {{ guide["rating"] }} rating</p>
-              <a href={{"/guide/"+(guide["id"]|string)}} class="btn btn-info">Buy for {{ guide["cost"] }} </a><br>
+              {% if guide["ratings"] == 0 %}
+                <p class="card-text">No reviews</p>
+              {% else %}
+                <p class="card-text">{{ guide["rating"] }} rating on {{ guide["ratings"] }} reviews</p>
+              {% endif %}
+              <a href={{"/buy/"+(guide["id"]|string)}} class="btn btn-info">Buy for {{ guide["cost"] }}</a><br>
         {% endfor %}
   {% endif %}
 {% endblock %}

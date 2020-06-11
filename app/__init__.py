@@ -139,10 +139,22 @@ def make():
     return redirect(url_for("home"))
 
 
+@app.route("/buy/<id>")
+@protected
+def get(id):
+    if ops.has_bought(session["username"],id) or ops.buy_guide(session["username"],id):
+        return redirect(url_for("guide",number=id))
+    flash("You don't have enough money to buy this")
+    return redirect(url_for("home"))
+
+
+
 @app.route("/guide/<number>")
 @protected
 def guide(number):
-    return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number))
+    if ops.has_bought(session["username"],number):
+        return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number))
+    return redirect(url_for("home"))
 
 
 @app.route("/market")
