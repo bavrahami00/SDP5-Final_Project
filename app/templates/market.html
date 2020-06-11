@@ -11,16 +11,16 @@
   {% if guides|length < 1 %}
     <p> Unfortunately, there are currently no guides up on the market. </p>
     {% else %}
-      <ul>
         {% for guide in guides %}
-          <li>
-            <a href={{"/guide/"+(guide["id"]|string)}}>{{ guide["name"] }} </a><br>
-            <p> Subject: {{ guide["subject"]}} </p><br>
-            <p> Price: {{ guide["cost"] }} </p><br>
-            <p> Author: {{ guide["user"] }} </p><br>
-            <p> Rating: {{ guide["rating"] }} </p>
-          </li>
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">{{ guide["name"] }}</h4>
+              <h5>Created by {{ guide["user"] }}</h5>
+              <h5>Subject: {{ guide["subject"]}}</h5>
+              <br>
+              <p class="card-text">{{ guide["buyers"] }} buyers</p>
+              <p class="card-text"> {{ guide["rating"] }} rating</p>
+              <a href={{"/guide/"+(guide["id"]|string)}} class="btn btn-info">Buy for {{ guide["cost"] }} </a><br>
         {% endfor %}
-      </ul>
   {% endif %}
 {% endblock %}
