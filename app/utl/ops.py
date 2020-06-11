@@ -61,7 +61,7 @@ def get_money(username):
 
 
 def add_money(username,amount):
-    if get_money(username) + amount < 0:
+    if get_money(username) + int(amount) < 0:
         return False
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -197,7 +197,7 @@ def add_rating(username, id, rating):
 def buy_guide(username, id):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("SELECT * FROM guides WHERE id = ?;" , (username,))
+    c.execute("SELECT * FROM guides WHERE id = ?;" , (id,))
     row = c.fetchone()
     owner = row[1]
     price = row[4]
