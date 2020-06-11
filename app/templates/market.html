@@ -14,7 +14,7 @@
       <ul>
         {% for guide in guides %}
           <li>
-            <a href="#">{{ guide["name"] }} </a><br>
+            <a href={{"/guide/"+(guide["id"]|string)}}>{{ guide["name"] }} </a><br>
             <p> Subject: {{ guide["subject"]}} </p><br>
             <p> Price: {{ guide["cost"] }} </p><br>
             <p> Author: {{ guide["user"] }} </p><br>

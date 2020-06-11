@@ -145,6 +145,12 @@ def guide(number):
     return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number))
 
 
+@app.route("/market")
+@protected
+def market():
+    return render_template("market.html", guides = ops.get_unguides(session['username']))
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
