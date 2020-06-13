@@ -76,24 +76,25 @@ def get_unguides(username):
     c = db.cursor()
     c.execute("SELECT * FROM guides WHERE user != ?;" , (username,))
     g = c.fetchall()
-    db.close()
     ans = []
     for row in g:
-        next = {}
-        next["id"] = row[0]
-        next["user"] = row[1]
-        next["name"] = row[2]
-        next["rating"] = row[3]
-        next["cost"] = row[4]
-        next["buyers"] = row[5]
-        next["subject"] = row[6]
-        next["guide"] = row[7]
-        next["ratings"] = row[8]
-        ans.append(next)
+        c.execute("SELECT * FROM buyers WHERE user = ? AND id = ?;" , (username,row[0]))
+        if c.fetchone() is None:
+            next = {}
+            next["id"] = row[0]
+            next["user"] = row[1]
+            next["name"] = row[2]
+            next["rating"] = row[3]
+            next["cost"] = row[4]
+            next["buyers"] = row[5]
+            next["subject"] = row[6]
+            next["guide"] = row[7]
+            next["ratings"] = row[8]
+            ans.append(next)
     return ans
 
 
-def get_guides(username):
+def get_own_guides(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("SELECT * FROM guides WHERE user = ?;" , (username,))
@@ -112,6 +113,30 @@ def get_guides(username):
         next["guide"] = row[7]
         next["ratings"] = row[8]
         ans.append(next)
+    return ans
+
+
+def get_pur_guides(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM buyers WHERE user = ?;" , (username,))
+    g = c.fetchall()
+    ans = []
+    for ro in g:
+        c.execute("SELECT * FROM guides WHERE id = ?;" , (ro[0],))
+        row = c.fetchone()
+        next = {}
+        next["id"] = row[0]
+        next["user"] = row[1]
+        next["name"] = row[2]
+        next["rating"] = row[3]
+        next["cost"] = row[4]
+        next["buyers"] = row[5]
+        next["subject"] = row[6]
+        next["guide"] = row[7]
+        next["ratings"] = row[8]
+        ans.append(next)
+    db.close()
     return ans
 
 

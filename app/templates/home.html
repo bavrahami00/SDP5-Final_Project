@@ -7,17 +7,29 @@
 {% block body %}
   <br>
   <h3>Your Guides</h3>
-  {% if guides|length < 1 %}
-        {% set word = 'one' %}
-        <p>You haven't created any guides</p>
+    {% if own_guides|length < 1 %}
+      <p>You haven't created any guides</p>
     {% else %}
-        <ul>
-        {%  for guide in guides %}
-            <li>
-                <a href={{"/guide/"+(guide["id"]|string)}}>{{ guide["name"] }}</a>
-            </li>
-        {%  endfor %}
-        </ul>
+      <ul>
+      {% for guide in own_guides %}
+        <li>
+          <a href={{"/guide/"+(guide["id"]|string)}}>{{ guide["name"] }}</a>
+        </li>
+      {% endfor %}
+      </ul>
     {% endif %}
   <br>
+  <br>
+  <h3>Purchased Guides</h3>
+    {% if pur_guides|length < 1 %}
+      <p>You haven't bought any guides</p>
+    {% else %}
+      <ul>
+      {% for guide in pur_guides %}
+        <li>
+          <a href={{"/guide/"+(guide["id"]|string)}}>{{ guide["name"] }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
 {% endblock %}

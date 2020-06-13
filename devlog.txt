@@ -8,7 +8,6 @@ benjaminA -- 2020-06-08 17:45
 - Created a base.html template page
 
 benjaminA -- 2020-06-08 21:45
-- (Reacquainted myself with sqlite)
 - Wrote preliminary database functions
 
 benjaminA -- 2020-06-09 15:50
@@ -36,7 +35,7 @@ justinS - 2020-06-10 17:04
 - Added operation to get guide information
 - Fixed login protections
 
-benjamin A -- 2020-06-10 18:50
+benjaminA -- 2020-06-10 18:50
 - Gave additional description of website on README
 - Allowed a (very rudimentary) way of viewing guides after creation
 - Moved navbar from each html page into base.html
@@ -46,3 +45,15 @@ justinS -- 2020-06-10 17:13
 
 hongweiC -- 2020-06-10 19:59
 - Created and uploaded design doc v0
+
+benjaminA -- 2020-06-10 22:45
+- Moved guides in the market from a list into a pack of cards
+- Added a new database for buyers
+- Created functions to put a rating on a guide and to buy a guide
+- Buying now changes the money of buyer and seller, and nothing can bring money below 0
+
+benjaminA -- 2020-06-12 23:10
+- Fixed bug blocking owner from viewing guides
+- Allowed users to comment on guides
+- Included bought guides on the homepage
+- Excluded bought guides from the marketplace

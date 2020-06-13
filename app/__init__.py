@@ -95,7 +95,7 @@ def logout():
 @app.route("/home")
 @protected
 def home():
-    return render_template("home.html", guides=ops.get_guides(session["username"]))
+    return render_template("home.html", own_guides=ops.get_own_guides(session["username"]), pur_guides=ops.get_pur_guides(session["username"]))
 
 
 @app.route("/coins")
