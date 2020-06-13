@@ -57,3 +57,8 @@ benjaminA -- 2020-06-12 23:10
 - Allowed users to comment on guides
 - Included bought guides on the homepage
 - Excluded bought guides from the marketplace
+
+-benjaminA -- 2020-06-13 19:50
+- Created non-guide discussion pages
+- Added backend functions to accomodate adding there
+- Added user column to talk database
