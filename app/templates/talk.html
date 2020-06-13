@@ -1,0 +1,28 @@
+  
+{% extends "base.html" %}
+
+{% block title %}
+  {{comments[0]}}
+{% endblock %}
+
+{% block body %}
+  <h1>{{comments[0]}}</h1>
+  <br>
+  <br>
+  {% if comments|length == 0 %}
+    Nothing to see here
+  {% else %}
+    {% for comment in comments[1:] %}
+      <br>
+      {% for i in comment %}
+        <h5>{{i}}</h5>
+        <p>{{comment[i]}}</p>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+  <br>
+  <form action={{"/talker/"+(id|string)}}>
+    <input type="text" name="comment" placeholder="Comment...">
+    <button type="submit" class="btn btn-info">Post</button>
+  </form>
+{% endblock %}
