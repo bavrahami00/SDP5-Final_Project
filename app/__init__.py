@@ -148,6 +148,14 @@ def get(id):
     return redirect(url_for("home"))
 
 
+@app.route("/opinion/<id>")
+@protected
+def opinions(id):
+    if len(request.args) >= 1:
+        if request.args["comment"] != "":
+            ops.add_comment(session["username"],id,request.args["comment"])
+    return redirect(url_for("guide",number=id))
+
 
 @app.route("/guide/<number>")
 @protected

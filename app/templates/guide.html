@@ -5,5 +5,25 @@
 {% endblock %}
 
 {% block body %}
+  <h1>{{info["name"]}}</h1>
+  <br>
   {{info["guide"]}}
+  <br>
+  <br>
+  <h3>Comments</h3>
+  <br>
+  {% if comments|length == 0 %}
+    No comments
+  {% else %}
+    {% for comment in comments %}
+      <br>
+      <h5>{{comment[0]}}</h5>
+      <p>{{comment[1]}}</p>
+    {% endfor %}
+  {% endif %}
+  <br>
+  <form action={{"/opinion/"+(info["id"]|string)}}>
+    <input type="text" name="comment" placeholder="Comment...">
+    <button type="submit" class="btn btn-info">Post</button>
+  </form>
 {% endblock %}

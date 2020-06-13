@@ -194,6 +194,14 @@ def add_rating(username, id, rating):
     db.close()
 
 
+def add_comment(username, id, comment):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("INSERT INTO comments(id,user,comment) VALUES(?, ?, ?);" , (id, username, comment))
+    db.commit()
+    db.close()
+
+
 def buy_guide(username, id):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -220,6 +228,8 @@ def has_bought(username, id):
     c.execute("SELECT * FROM buyers WHERE id = ? AND user = ?;" , (id, username))
     ans = True
     if c.fetchone() is None:
-        ans = False
+        c.execute("SELECT * FROM guides WHERE id = ? AND user = ?;" , (id, username))
+        if c.fetchone() is None:
+            ans = False
     db.close()
     return ans
