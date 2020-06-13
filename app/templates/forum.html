@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Forum
+{% endblock %}
+
+{% block body %}
+  <form action="/forum">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="title">
+    </div>
+    <button type="submit" class="btn btn-primary" href="/starttalk">Create a discussion</button>
+  </form>
+  <br>
+  <br>
+  <ul>
+  {% for d in discussions %}
+    <li>
+      <a href={{"/talk/"+(d|string)}}>{{discussions[d][0]}}</a>
+    </li>
+  {% endfor %}
+  </ul>
+{% endblock %}

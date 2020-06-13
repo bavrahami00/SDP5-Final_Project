@@ -171,6 +171,32 @@ def market():
     return render_template("market.html", guides = ops.get_unguides(session['username']))
 
 
+@app.route("/forum")
+@protected
+def forum():
+    if len(request.args) == 1:
+        if request.args["title"] == "":
+            flash("Do not leave the name blank")
+        else:
+            ops.create_discussion(request.args["title"])
+    return render_template("forum.html", discussions = ops.get_discussions())
+
+
+@app.route("/talk/<number>")
+@protected
+def talk(number):
+    return render_template("talk.html", comments = ops.get_discussion(number), id=number)
+
+
+@app.route("/talker/<id>")
+@protected
+def talker(id):
+    if len(request.args) >= 1:
+        if request.args["comment"] != "":
+            ops.add_talk(session["username"],id,request.args["comment"])
+    return redirect(url_for("talk",number=id))
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
