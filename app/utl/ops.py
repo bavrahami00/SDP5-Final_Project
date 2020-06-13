@@ -14,7 +14,7 @@ def init():
     c.execute("CREATE TABLE IF NOT EXISTS buyers(id INTEGER, user TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS comments(id INTEGER, user TEXT, comment TEXT);")
     c.execute("CREATE TABLE IF NOT EXISTS discussions(id INTEGER, name TEXT);")
-    c.execute("CREATE TABLE IF NOT EXISTS talk(id INTEGER, comment TEXT);")
+    c.execute("CREATE TABLE IF NOT EXISTS talk(id INTEGER, user TEXT, comment TEXT);")
     # required actions to save changes
     db.commit()
     db.close()
@@ -258,3 +258,50 @@ def has_bought(username, id):
             ans = False
     db.close()
     return ans
+
+
+def get_discussions():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    disc = {}
+    c.execute("SELECT * FROM discussions;")
+    g = c.fetchall()
+    for row in g:
+        into = []
+        into.append(row[1])
+        disc[row[0]] = into
+    c.execute("SELECT * FROM talk;")
+    g = c.fetchall()
+    for row in g:
+        app = {}
+        app[row[1]] = row[2]
+        disc[row[0]].append(app)
+    db.close()
+    return disc
+
+
+def get_discussion(id):
+    ans = get_discussions()
+    return ans[1]
+
+
+def create_discussion(title):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM discussions")
+    g = c.fetchall()
+    high = 0
+    for row in g:
+        if row[0] > high:
+            high = row[0]
+    c.execute("INSERT INTO discussions(id,name) VALUES(?, ?);" , (high+1,title))
+    db.commit()
+    db.close()
+
+
+def add_talk(username, id, comment):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("INSERT INTO talk(id,user,comment) VALUES(?, ?, ?);" , (id, username, comment))
+    db.commit()
+    db.close()
