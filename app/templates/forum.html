@@ -5,15 +5,17 @@
 {% endblock %}
 
 {% block body %}
+  <br>
   <form action="/forum">
     <div class="form-group">
       <label>Name</label>
       <input type="text" name="title">
     </div>
+    <br>
     <button type="submit" class="btn btn-primary" href="/starttalk">Create a discussion</button>
   </form>
   <br>
-  <br>
+  Current discussions
   <ul>
   {% for d in discussions %}
     <li>
