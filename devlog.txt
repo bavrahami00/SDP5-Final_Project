@@ -62,3 +62,6 @@ benjaminA -- 2020-06-12 23:10
 - Created non-guide discussion pages
 - Added backend functions to accomodate adding there
 - Added user column to talk database
+
+justinS -- 2020-06-15 17:47
+- Fixed styling for guides
