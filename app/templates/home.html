@@ -6,16 +6,31 @@
 
 {% block body %}
   <br>
+  <div class="col-md-6">
   <form method="post">
-        <input type="text" name="query">
+            <label>Search by Title:</label>
+            <input type="text" name="query" size="70">
+            <br>
+            <label>Filter by Subject:</label>
+            <select class="custom-select" name="subject">
+              <option selected>Any</option>
+              {% for o in subjects %}
+                <option>{{o}}</option>
+              {% endfor %}
+            </select>
         <input type="submit" name="button" value="Search">
   </form>
+  </div>
+  <br>
 
   {% if query|length > 0 %}
     <p> Showing results for '{{ query }}' </P>
+  {% endif %}
+  {% if subject != "Any" %}
+    <p> Only showing guides with subject '{{ subject }}' </P>
     <br>
   {% endif %}
-  <br>
+
   <h3>Your Guides</h3>
     {% if own_guides|length < 1 %}
       <p>You haven't created any guides</p>

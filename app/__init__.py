@@ -100,18 +100,27 @@ def home():
     ogs = ops.get_own_guides(session["username"])
     pgs = ops.get_pur_guides(session["username"])
     q = ""
+    sub = "Any"
+    if 'subject' in request.form.keys() and len(request.form['subject']) > 0:
+        sub = request.form['subject']
     if 'query' in request.form.keys() and len(request.form['query']) > 0:
         q = request.form['query']
         for guide in ogs:
             if q.lower() in guide["name"].lower():
-                own_results.append(guide)
+                if sub == "Any" or guide["subject"] == sub:
+                    own_results.append(guide)
         for guide in pgs:
             if q.lower() in guide["name"].lower():
-                pur_results.append(guide)
+                if sub == "Any" or guide["subject"] == sub:
+                    pur_results.append(guide)
     else:
-         own_results = ogs
-         pur_results = pgs
-    return render_template("home.html", own_guides=own_results, pur_guides=pur_results, query = q)
+         for guide in ogs:
+             if sub == "Any" or guide["subject"] == sub:
+                 own_results.append(guide)
+         for guide in pgs:
+             if sub == "Any" or guide["subject"] == sub:
+                 pur_results.append(guide)
+    return render_template("home.html", own_guides=own_results, pur_guides=pur_results, query = q, subjects = ops.get_subjects(), subject = sub)
 
 
 @app.route("/coins")
@@ -187,14 +196,20 @@ def market():
     results = []
     gs = ops.get_unguides(session['username'])
     q = ""
+    sub = "Any"
+    if 'subject' in request.form.keys() and len(request.form['subject']) > 0:
+        sub = request.form['subject']
     if 'query' in request.form.keys() and len(request.form['query']) > 0:
         q = request.form['query']
         for guide in gs:
             if q.lower() in guide["name"].lower():
-                results.append(guide)
+                if sub == "Any" or guide["subject"] == sub:
+                    results.append(guide)
     else:
-         results = gs
-    return render_template("market.html", guides = results, query = q)
+         for guide in gs:
+             if sub == "Any" or guide["subject"] == sub:
+                 results.append(guide)
+    return render_template("market.html", guides = results, query = q, subjects = ops.get_subjects(), subject = sub)
 
 
 @app.route("/forum")
