@@ -241,4 +241,5 @@ def talker(id):
 
 if __name__ == "__main__":
     app.debug = True
+    ops.init()
     app.run()

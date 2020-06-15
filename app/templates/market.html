@@ -32,7 +32,7 @@
     <p> Only showing guides with subject '{{ subject }}' </P>
     <br>
   {% endif %}
-  
+
   {% if guides|length < 1 %}
     <p> No results found. </p>
     {% else %}
@@ -50,6 +50,8 @@
                 <p class="card-text">{{ guide["rating"] }} rating on {{ guide["ratings"] }} reviews</p>
               {% endif %}
               <a href={{"/buy/"+(guide["id"]|string)}} class="btn btn-info">Buy for {{ guide["cost"] }}</a><br>
+            </div>
+          </div>
         {% endfor %}
   {% endif %}
 {% endblock %}
