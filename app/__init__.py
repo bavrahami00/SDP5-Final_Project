@@ -165,10 +165,20 @@ def guide(number):
     return redirect(url_for("home"))
 
 
-@app.route("/market")
+@app.route("/market", methods=['GET', 'POST'])
 @protected
 def market():
-    return render_template("market.html", guides = ops.get_unguides(session['username']))
+    results = []
+    gs = ops.get_unguides(session['username'])
+    q = ""
+    if 'query' in request.form.keys() and len(request.form['query']) > 0:
+        q = request.form['query']
+        for guide in gs:
+            if q.lower() in guide["name"].lower():
+                results.append(guide)
+    else:
+         results = gs
+    return render_template("market.html", guides = results, query = q)
 
 
 @app.route("/forum")
@@ -195,6 +205,7 @@ def talker(id):
         if request.args["comment"] != "":
             ops.add_talk(session["username"],id,request.args["comment"])
     return redirect(url_for("talk",number=id))
+
 
 
 if __name__ == "__main__":

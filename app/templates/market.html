@@ -8,8 +8,17 @@
   <br>
   <h3> The Marketplace </h3>
 
+  <form method="post">
+        <input type="text" name="query">
+        <input type="submit" name="button" value="Search">
+  </form>
+
+  {% if query|length > 0 %}
+    <p> Showing results for '{{ query }}' </P>
+    <br>
+  {% endif %}
   {% if guides|length < 1 %}
-    <p> Unfortunately, there are currently no guides up on the market. </p>
+    <p> No results found. </p>
     {% else %}
         {% for guide in guides %}
           <div class="card">

@@ -70,3 +70,4 @@ justinS -- 2020-06-15 17:47
 justinS -- 2020-06-15 16:16
 - Allowed for line breaks in the form input when creating a guides
 - Allowed html tags to be used for formatting
+- Added search by title in marketplace
