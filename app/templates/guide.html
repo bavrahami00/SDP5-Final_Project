@@ -7,7 +7,9 @@
 {% block body %}
   <h1>{{info["name"]}}</h1>
   <br>
-  {{info["guide"]}}
+  {% autoescape false %}
+  {{info["guide"] | replace("\n", "<br>")}}
+  {% endautoescape %}
   <br>
   <br>
   <h3>Comments</h3>
