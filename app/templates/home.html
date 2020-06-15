@@ -6,6 +6,16 @@
 
 {% block body %}
   <br>
+  <form method="post">
+        <input type="text" name="query">
+        <input type="submit" name="button" value="Search">
+  </form>
+
+  {% if query|length > 0 %}
+    <p> Showing results for '{{ query }}' </P>
+    <br>
+  {% endif %}
+  <br>
   <h3>Your Guides</h3>
     {% if own_guides|length < 1 %}
       <p>You haven't created any guides</p>

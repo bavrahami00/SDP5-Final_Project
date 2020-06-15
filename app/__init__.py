@@ -92,10 +92,26 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 @protected
 def home():
-    return render_template("home.html", own_guides=ops.get_own_guides(session["username"]), pur_guides=ops.get_pur_guides(session["username"]))
+    own_results = []
+    pur_results = []
+    ogs = ops.get_own_guides(session["username"])
+    pgs = ops.get_pur_guides(session["username"])
+    q = ""
+    if 'query' in request.form.keys() and len(request.form['query']) > 0:
+        q = request.form['query']
+        for guide in ogs:
+            if q.lower() in guide["name"].lower():
+                own_results.append(guide)
+        for guide in pgs:
+            if q.lower() in guide["name"].lower():
+                pur_results.append(guide)
+    else:
+         own_results = ogs
+         pur_results = pgs
+    return render_template("home.html", own_guides=own_results, pur_guides=pur_results, query = q)
 
 
 @app.route("/coins")
