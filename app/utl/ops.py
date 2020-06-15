@@ -282,7 +282,7 @@ def get_discussions():
 
 def get_discussion(id):
     ans = get_discussions()
-    return ans[1]
+    return ans[int(id)]
 
 
 def create_discussion(title):
