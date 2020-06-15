@@ -1,10 +1,16 @@
 # A Study in Guides by last_minute_panic
 
 **Roster**
-- Benjamin Avrahami
+- Benjamin Avrahami (PM)
+  - Back end, database management
+  - Middleware, Flask routes
+  - Other holes that need to be filled
 - Hong Wei Chen
+  - Middleware, Flask routes
 - Justin Shaw
+  - Front end, styling pages and templating
 - Jude Rizzo
+  - Front end, styling pages and templating
 
 ## Website Description:
 This website is an attempt to have a place to collect all Stuy-related study guides and create a marketplace for them. One can buy, sell, or comment on the various study guides here. In addition, there is a discussion room where academic discussions on various topics can occur.
