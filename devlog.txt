@@ -73,3 +73,6 @@ justinS -- 2020-06-15 16:16
 
 justinS -- 2020-06-15 17:07
 - Added search by title and subject in the marketplace and home page
+
+hongweiC -- 2020-06-15 23:50
+- Updated design doc, modified database map according to the db operations python file to include ratings, comments, discussion, etc. 
