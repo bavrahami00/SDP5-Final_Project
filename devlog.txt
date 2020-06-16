@@ -76,3 +76,8 @@ justinS -- 2020-06-15 17:07
 
 hongweiC -- 2020-06-15 23:50
 - Updated design doc, modified database map according to the db operations python file to include ratings, comments, discussion, etc. 
+
+benjaminA -- 2020-06-16 04:40
+- Created a rating system where users can rate the guides
+- Allowed owner of guides to see the number of buyers and the rating
+
