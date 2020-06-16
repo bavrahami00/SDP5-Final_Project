@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
 {% block title %}
   {{info["name"]}}
 {% endblock %}
@@ -10,6 +14,14 @@
   {% autoescape false %}
   {{info["guide"] | replace("\n", "<br>")}}
   {% endautoescape %}
+  <br>
+  <br>
+  <h4>Rate this guide!</h4>
+  <a href={{"/rate/"+(info["id"]|string)+"/1"}}><span id="star1" class="fa fa-star"></span></a>
+  <a href={{"/rate/"+(info["id"]|string)+"/2"}}><span id="star2" class="fa fa-star"></span></a>
+  <a href={{"/rate/"+(info["id"]|string)+"/3"}}><span id="star3" class="fa fa-star"></span></a>
+  <a href={{"/rate/"+(info["id"]|string)+"/4"}}><span id="star4" class="fa fa-star"></span></a>
+  <a href={{"/rate/"+(info["id"]|string)+"/5"}}><span id="star5" class="fa fa-star"></span></a>
   <br>
   <br>
   <h3>Comments</h3>
@@ -28,4 +40,82 @@
     <input type="text" name="comment" placeholder="Comment...">
     <button type="submit" class="btn btn-info">Post</button>
   </form>
+{% endblock %}
+
+{% block script %}
+<script>
+  var a = document.getElementById("star1");
+  var b = document.getElementById("star2");
+  var c = document.getElementById("star3");
+  var d = document.getElementById("star4");
+  var e = document.getElementById("star5");
+
+  function addA() {
+    a.style.color = "orange";
+    a.addEventListener("mouseout", removeA);
+  }
+  function addB() {
+    a.style.color = "orange";
+    b.style.color = "orange";
+    b.addEventListener("mouseout", removeB);
+  }
+  function addC() {
+    a.style.color = "orange";
+    b.style.color = "orange";
+    c.style.color = "orange";
+    c.addEventListener("mouseout", removeC);
+  }
+  function addD() {
+    a.style.color = "orange";
+    b.style.color = "orange";
+    c.style.color = "orange";
+    d.style.color = "orange";
+    d.addEventListener("mouseout", removeD);
+  }
+  function addE() {
+    a.style.color = "orange";
+    b.style.color = "orange";
+    c.style.color = "orange";
+    d.style.color = "orange";
+    e.style.color = "orange";
+    e.addEventListener("mouseout", removeE);
+  }
+
+  function removeA() {
+    a.style.color = "black";
+    a.addEventListener("mouseover", addA);
+  }
+  function removeB() {
+    a.style.color = "black";
+    b.style.color = "black";
+    b.addEventListener("mouseover", addB);
+  }
+  function removeC() {
+    a.style.color = "black";
+    b.style.color = "black";
+    c.style.color = "black";
+    c.addEventListener("mouseover", addC);
+  }
+  function removeD() {
+    a.style.color = "black";
+    b.style.color = "black";
+    c.style.color = "black";
+    d.style.color = "black";
+    d.addEventListener("mouseover", addD);
+  }
+  function removeE() {
+    a.style.color = "black";
+    b.style.color = "black";
+    c.style.color = "black";
+    d.style.color = "black";
+    e.style.color = "black";
+    e.addEventListener("mouseover", addE);
+  }
+  
+  removeA();
+  removeB();
+  removeC();
+  removeD();
+  removeE();
+</script>
 {% endblock %}

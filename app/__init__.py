@@ -190,6 +190,20 @@ def guide(number):
     return redirect(url_for("home"))
 
 
+@app.route("/rate/<id>/<rating>")
+@protected
+def rate(id,rating):
+    if ops.has_bought(session["username"],id):
+        try:
+            if int(rating) > 0 and int(rating) < 6:
+                ops.add_rating(session["username"],id,rating)
+                return redirect(url_for("guide",number=id))
+        except:
+             return redirect(url_for("home"))
+    return redirect(url_for("home"))
+
+
+
 @app.route("/market", methods=['GET', 'POST'])
 @protected
 def market():
