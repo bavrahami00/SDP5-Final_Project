@@ -305,3 +305,12 @@ def add_talk(username, id, comment):
     c.execute("INSERT INTO talk(id,user,comment) VALUES(?, ?, ?);" , (id, username, comment))
     db.commit()
     db.close()
+
+
+def owns(username, id):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM guides WHERE id = ? AND user = ?;" , (id, username))
+    ans = not c.fetchone() is None
+    db.close()
+    return ans

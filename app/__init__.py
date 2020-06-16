@@ -186,7 +186,7 @@ def opinions(id):
 @protected
 def guide(number):
     if ops.has_bought(session["username"],number):
-        return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number))
+        return render_template("guide.html", info = ops.get_guide_info(number), comments = ops.get_comments(number), owner = ops.owns(session["username"],number))
     return redirect(url_for("home"))
 
 

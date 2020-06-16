@@ -11,6 +11,14 @@
 {% block body %}
   <h1>{{info["name"]}}</h1>
   <br>
+  <p class="card-text">{{ info["buyers"] }} buyers</p>
+  {% if info["ratings"] == 0 %}
+    <p class="card-text">No reviews</p>
+  {% else %}
+    <p class="card-text">{{ info["rating"] }} rating on {{ info["ratings"] }} reviews</p>
+  {% endif %}
+  <br>
+  <br>
   {% autoescape false %}
   {{info["guide"] | replace("\n", "<br>")}}
   {% endautoescape %}
