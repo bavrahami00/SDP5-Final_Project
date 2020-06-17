@@ -1,5 +1,7 @@
 # A Study in Guides by last_minute_panic
 
+[Video demo here](https://youtu.be/UvaOLFIPnKE)
+
 **Roster**
 - Benjamin Avrahami (PM)
   - Back end, database management

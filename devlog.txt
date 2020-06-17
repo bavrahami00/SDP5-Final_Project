@@ -81,3 +81,6 @@ benjaminA -- 2020-06-16 04:40
 - Created a rating system where users can rate the guides
 - Allowed owner of guides to see the number of buyers and the rating
 
+benjaminA -- 2020-06-17 3:50
+- Fixed bug where anyone could see guide data
+- Linked the video demo
